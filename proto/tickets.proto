@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package tickets;
+
+option go_package = "./proto;proto";
+
+service TrainService {
+  rpc PurchaseTicket(PurchaseRequest) returns (TicketResponse);
+  rpc ViewTicket(ViewRequest) returns (TicketResponse);
+  rpc ViewUsers(ViewRequest) returns (UsersResponse);
+  rpc RemoveUser(RemoveRequest) returns (RemoveResponse);
+  rpc ModifySeat(ModifySeatRequest) returns (TicketResponse);
+}
+
+message PurchaseRequest {
+  string from = 1;
+  string to = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string email = 5;
+}
+
+message ViewRequest {
+  string email = 1;
+}
+
+message RemoveRequest {
+  string email = 1;
+}
+
+message ModifySeatRequest {
+  string email = 1;
+  string new_seat = 2;
+}
+
+message TicketResponse {
+  string from = 1;
+  string to = 2;
+  User user = 3;
+  string seat = 4;
+  int32 price = 5;
+}
+
+message UsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+}
+
+message RemoveResponse {
+  bool success = 1;
+}
